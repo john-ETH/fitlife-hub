@@ -1,0 +1,53 @@
+/* css/style.css */
+@import url('https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&family=Sarabun:wght@300;400;600&display=swap');
+
+:root {
+  --font-heading: 'Prompt', sans-serif;
+  --font-body: 'Sarabun', sans-serif;
+  
+  /* Light Mode Colors */
+  --bg-primary: #f8fafc;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-muted: #64748b;
+  --accent-color: #f97316; /* Orange */
+  --border-color: #e2e8f0;
+}
+
+[data-theme="dark"] {
+  /* Dark Mode Colors */
+  --bg-primary: #0f172a;
+  --bg-card: #1e293b;
+  --text-primary: #f8fafc;
+  --text-muted: #94a3b8;
+  --accent-color: #fb923c;
+  --border-color: #334155;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* Hover & Focus States for Accessibility */
+a, button, input, select, textarea {
+  transition: all 0.2s ease-in-out;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+/* Utilities */
+.img-responsive {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}

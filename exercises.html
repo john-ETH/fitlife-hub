@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>รายการท่าออกกำลังกายและสภาพอากาศ - FitLife Hub</title>
+  <meta name="description" content="ค้นหาท่าออกกำลังกายแยกตามกลุ่มกล้ามเนื้อ และตรวจเช็คสภาพอากาศสำหรับการวิ่งกลางแจ้ง">
+  <meta property="og:title" content="รายการท่าออกกำลังกาย - FitLife Hub">
+  <meta property="og:description" content="เลือกโปรแกรมฝึกซ้อมและเช็คสภาพอากาศก่อนออกวิ่ง">
+  <meta property="og:type" content="website">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="flex flex-col min-h-screen">
+
+  <!-- Header (เหมือนหน้าแรก) -->
+  <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <a href="index.html" class="text-2xl font-bold text-orange-500 flex items-center gap-2">
+        <i class="fa-solid fa-bolt"></i> FitLife Hub
+      </a>
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="index.html" class="hover:text-orange-400">หน้าแรก</a>
+        <a href="exercises.html" class="hover:text-orange-400 font-semibold text-orange-500">ท่าออกกำลังกาย & สภาพอากาศ</a>
+        <a href="contact.html" class="hover:text-orange-400">ติดต่อเรา</a>
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-slate-800" aria-label="สลับโหมดสว่าง/มืด"><i class="fa-solid fa-moon"></i></button>
+      </nav>
+      <button id="mobile-menu-btn" class="md:hidden text-2xl p-2" aria-label="เปิดเมนู"><i class="fa-solid fa-bars"></i></button>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden bg-slate-800 px-4 pt-2 pb-4 space-y-2">
+      <a href="index.html" class="block py-2 hover:text-orange-400">หน้าแรก</a>
+      <a href="exercises.html" class="block py-2 hover:text-orange-400">ท่าออกกำลังกาย & สภาพอากาศ</a>
+      <a href="contact.html" class="block py-2 hover:text-orange-400">ติดต่อเรา</a>
+      <button id="theme-toggle-mobile" class="w-full text-left py-2 hover:text-orange-400 flex items-center gap-2"><i class="fa-solid fa-moon"></i> สลับโหมดสว่าง/มืด</button>
+    </nav>
+  </header>
+
+  <main class="flex-grow container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6">คลังท่าออกกำลังกาย & เช็คสภาพอากาศ</h1>
+
+    <!-- ⛅ SECTION: API Weather Status -->
+    <section class="bg-slate-800 text-white p-6 rounded-2xl shadow-lg mb-10">
+      <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
+        <i class="fa-solid fa-cloud-sun text-amber-400"></i> สภาพอากาศสำหรับการวิ่ง Outdoor (กรุงเทพฯ)
+      </h2>
+      
+      <!-- Loading State -->
+      <div id="weather-loading" class="flex items-center gap-3 py-4">
+        <div class="animate-spin rounded-full h-6 w-6 border-b-2 border-orange-500"></div>
+        <span>กำลังดึงข้อมูลสภาพอากาศล่าสุด...</span>
+      </div>
+
+      <!-- Weather Content (จะถูกเติมด้วย JS) -->
+      <div id="weather-content" class="hidden grid grid-cols-1 md:grid-cols-3 gap-4"></div>
+
+      <!-- Error State -->
+      <div id="weather-error" class="hidden text-red-400 py-2">
+        <i class="fa-solid fa-circle-exclamation"></i> ไม่สามารถดึงข้อมูลสภาพอากาศได้ กรุณาลองใหม่อีกครั้ง
+      </div>
+    </section>
+
+    <!-- 🔍 SECTION: Search & Filter Exercises -->
+    <section class="mb-8">
+      <div class="flex flex-col md:flex-row gap-4 justify-between items-center">
+        <!-- Input ค้นหา -->
+        <input type="text" id="search-input" placeholder="ค้นหาชื่อท่าออกกำลังกาย..." 
+               class="w-full md:w-1/2 p-3 rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+        
+        <!-- Filter Category -->
+        <select id="category-filter" class="w-full md:w-1/4 p-3 rounded-lg border border-slate-300 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+          <option value="all">ทุกกลุ่มกล้ามเนื้อ</option>
+          <option value="chest">อก (Chest)</option>
+          <option value="legs">ขา (Legs)</option>
+          <option value="core">หน้าท้อง (Core)</option>
+        </select>
+      </div>
+    </section>
+
+    <!-- 🏋️ SECTION: Exercise List (Cards) -->
+    <section id="exercise-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- ตัวอย่าง Card (จะแสดงผลผ่าน JS หรือ Static ก็ได้) -->
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 text-slate-400 py-8 px-4 border-t border-slate-800">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2026 FitLife Hub. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/api.js"></script>
+</body>
+</html>
